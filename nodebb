@@ -9,6 +9,8 @@ if [ $? -gt 0 ];
 	then node="$(which node)";
 fi
 
+nodedebug=$(which node-debug)
+
 function pidExists() {
 	if [ -e "pidfile" ];
 		then
@@ -108,6 +110,14 @@ case "$1" in
 		echo "More Information: https://docs.nodebb.org/en/latest/running/index.html"
 		NODE_ENV=development "$node" loader --no-daemon "$@"
 		;;
+
+    debug)
+		echo "Launching NodeBB in \"development\" mode with node-debug."
+		echo "To run the production build of NodeBB, please use \"forever\"."
+		echo "More Information: https://docs.nodebb.org/en/latest/running/index.html"
+		NODE_ENV=development "$nodedebug" app.js --no-daemon "$@"
+		;;
+        
 
 	watch)
 		echo "***************************************************************************"
